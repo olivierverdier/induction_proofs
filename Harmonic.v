@@ -80,18 +80,20 @@ Proof.
 Qed.
 
 
-
-
+Lemma harmonic_O: harmonic O = 1.
+Proof.
+  unfold harmonic.
+  replace (INR 0) with 0; auto.
+  replace (0 + 1) with 1; auto with real.
+Qed.
 
 Lemma sum_harm': forall n, sum (fun k => /2) n + 1 <= sum harmonic (2^n).
 Proof.
   intros.
   rewrite chunk_decomposition.
   assert (H: sum (fun _ : nat => / 2) n  <= sum (chunk_sums harmonic) n ). apply (sum_le (fun k => /2) (chunk_sums harmonic)). apply harmonic_chunk_ge_half.
-  unfold harmonic at 2.
-  replace (/ (INR 0 + 1)) with 1; auto with real.
-  replace (INR 0) with 0; auto.
-  replace (0 + 1) with 1; auto with real.
+  rewrite harmonic_O.
+  auto with real.
 Qed.
 
 Theorem sum_harm: forall n, (INR n)/2 +1 <= sum harmonic (2^n).
