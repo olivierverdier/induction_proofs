@@ -1,6 +1,7 @@
 Require Import Summing.
 Require Import Coq.Reals.Reals.
 Require Import Omega.
+Require Nat.
 Local Open Scope R_scope.
 
 (* divergence of harmonic series *)

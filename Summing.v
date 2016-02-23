@@ -1,4 +1,5 @@
 Require Import Coq.Reals.Reals.
+Require Nat.
 
 
 Local Open Scope R_scope.
