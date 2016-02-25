@@ -16,9 +16,9 @@ Lemma chunk_decomposition: forall u n, sum u (2^n) = sum (chunk_sums u) n + u O.
 Proof.
   intros.
   induction n as [|n' IHn'].
-  - auto.
-  - replace ((2^(S n'))%nat) with ((2^n' + 2^n')%nat); try rewrite Nat.pow_succ_r; intuition.
-    replace (sum u (2 ^ n' + 2 ^ n')) with (sum u (2^n') + sum_from u (2^n') (2^n')); auto using sum_sum_from.
+  - trivial.
+  - replace ((2^(S n'))%nat) with ((2^n' + 2^n')%nat); [|rewrite Nat.pow_succ_r; intuition].
+    replace (sum u (2 ^ n' + 2 ^ n')) with (sum u (2^n') + sum_from u (2^n') (2^n')); [|auto using sum_sum_from].
     rewrite IHn'. unfold sum. simpl. unfold chunk_sums. field.
 Qed.
   
@@ -67,21 +67,21 @@ Lemma harmonic_chunk_ge_half: forall n, /2 <= chunk_sums harmonic n.
 Proof.
   intros n.
   rewrite (half' n).
-  rewrite (pow_INR 2 2%nat); auto.
+  rewrite (pow_INR 2 2%nat); [|trivial].
   replace (/ (2^(S n))) with (harmonic (2 ^ n + 2 ^ n - 1)).
   - apply (lbound_decr harmonic harm_decr (2^n) (2^n)).
 
   - unfold harmonic. simpl. replace (INR (2^n + 2^n -1)) with (2^n + 2^n - 1).
-    * replace (2 ^ n + 2 ^ n - 1 + 1)  with (2*2^n); auto.
+    * replace (2 ^ n + 2 ^ n - 1 + 1)  with (2*2^n); trivial.
       field.
-    * rewrite (tech_INR 2 1%nat); auto. 
+    * rewrite (tech_INR 2 1%nat); trivial. 
 Qed.
 
 
-Lemma harmonic_O: harmonic O = 1.
+Lemma harmonic_O: harmonic 0 = 1.
 Proof.
   unfold harmonic.
-  replace (INR 0) with 0; auto.
+  replace (INR 0) with 0; [|trivial].
   replace (0 + 1) with 1; auto with real.
 Qed.
 
@@ -97,8 +97,8 @@ Qed.
 Theorem sum_harm: forall n, (INR n)/2 +1 <= sum harmonic (2^n).
 Proof.
   intros.
-  replace (INR n / 2) with (INR n * /2); auto with real.
-  replace (INR n * /2) with (sum_from (fun k => /2) 0 n); auto using sum_from_const.
+  replace (INR n / 2) with (INR n * /2); [|auto with real].
+  replace (INR n * /2) with (sum_from (fun k => /2) 0 n); [|auto using sum_from_const].
   apply sum_harm'.
 Qed.
 
