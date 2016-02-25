@@ -24,8 +24,8 @@ Qed.
   
 Lemma harm_decr: forall n m, (n <= m)%nat -> harmonic m <= harmonic n.
 Proof.
-  intros. unfold harmonic. repeat rewrite S_INR.
-  apply Rinv_le_contravar; auto using (Rplus_le_compat_r 1), le_INR with real . 
+  intros. unfold harmonic.
+  apply Rinv_le_contravar; auto with real. 
 Qed.
 
 
@@ -35,9 +35,8 @@ Lemma pow_INR: forall (x:R) (m:nat),
                  -> forall n, x^n = INR (m^n).
 Proof.
   intros x m H n.
-  induction n as [|n' IHn'].
-  - simpl. reflexivity.
-  - rewrite <- tech_pow_Rmult. simpl. rewrite mult_INR. rewrite <- IHn'. rewrite <- H. reflexivity.
+  induction n as [|n' IHn']; [trivial|]. 
+   simpl. rewrite mult_INR. congruence.
 Qed.
 
 
