@@ -54,14 +54,13 @@ Lemma tech_INR: forall (x:R) (m:nat),
                                INR((S m)^n + (S m)^n -1) = x^n + x^n - 1.
 Proof.
   intros x m H n.
-  rewrite minus_INR; try apply tech_nat_pow. rewrite plus_INR.
-  rewrite (pow_INR x (S m) H). replace (INR 1) with 1; auto. 
+  rewrite minus_INR; [|apply tech_nat_pow]. rewrite plus_INR.
+  rewrite (pow_INR x (S m)); [|trivial]. replace (INR 1) with 1; trivial. 
 Qed.
 
 Lemma half': forall n, (/2 =  (2^n) * / 2^(S n)).
 Proof.
-  intros.
-  rewrite <- tech_pow_Rmult. field. apply pow_nonzero. discrR.
+  intros. simpl. field. apply pow_nonzero. discrR.
 Qed.
 
 
