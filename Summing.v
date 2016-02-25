@@ -23,7 +23,7 @@ Fixpoint sum' (u: nat -> R) (N: nat) :=
 
 Lemma sum_check: forall u n, sum u n = sum' u n.
 Proof.
-  intros. unfold sum. induction n as [|n']; auto.
+  intros. unfold sum. induction n as [|n']; trivial.
 Qed.
 
 (* Some general theorems about sums *)
@@ -59,10 +59,10 @@ Proof.
 Qed.
 
 Lemma sum_zero: forall u, sum u 0 = 0.
-Proof. auto. Qed.
+Proof. trivial. Qed.
 
 Lemma sum_from_zero: forall u m, sum_from u m 0 = 0.
-Proof. auto. Qed.
+Proof. trivial. Qed.
 
 Lemma sum_sum_from:
   forall u n m,
