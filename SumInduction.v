@@ -6,7 +6,7 @@ Local Open Scope R_scope.
 
 (* Solution of some standard sum induction exercises *)
 
-Ltac rec_finish IH := rewrite IH; try field; try assumption.
+Ltac rec_finish IH := simpl; rewrite IH; try field; try assumption.
 
 Theorem sum_nat: forall n:nat, (sum (fun k => INR k) n) = INR n * (INR n-1)/2.
 Proof.
@@ -21,7 +21,7 @@ Proof.
   intros. unfold sum.
   induction n as [|n'].
   * simpl. field. assumption.
-  * simpl sum_from. rewrite <- tech_pow_Rmult. rec_finish IHn'.
+  * rec_finish IHn'.
 Qed.
 
 Definition tmp_u (k:nat) := (2 * INR k + 1)^2.
